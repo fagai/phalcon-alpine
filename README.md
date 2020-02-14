@@ -1,5 +1,10 @@
 # Phalcon PHP Alpine Linux Minumum Docker Image
 
+![Docker Stars](https://img.shields.io/docker/stars/fagai/phalcon-alpine.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/fagai/phalcon-alpine.svg)
+![Docker Automated](https://img.shields.io/docker/automated/fagai/phalcon-alpine.svg)
+![Docker Build](https://img.shields.io/docker/build/fagai/phalcon-alpine.svg)
+
 # Images
 
 | NAME | SPACE |
