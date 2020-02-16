@@ -19,13 +19,14 @@ RUN curl -LO https://github.com/phalcon/php-zephir-parser/archive/v${ZEPHIR_PARS
     && rm -rf php-zephir-parser-${ZEPHIR_PARSER_VERSION} v${ZEPHIR_PARSER_VERSION}.tar.gz
 
 # install phalcon extension
-RUN apk add --no-cache autoconf gcc g++ make \
+RUN apk add --no-cache autoconf gcc g++ make file \
     && curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz \
     && tar xzf v${PHALCON_VERSION}.tar.gz \
     && cd cphalcon-${PHALCON_VERSION} \
     && curl -LO https://github.com/phalcon/zephir/releases/download/0.12.15/zephir.phar \
-    && php zephir.phar fullclean && php zephir.phar build \
+    && php zephir.phar fullclean && php zephir.phar compile \
+    && docker-php-ext-install ${PWD}/ext \
     && cd .. \
     && rm -rf v${PHALCON_VERSION}.tar.gz cphalcon-${PHALCON_VERSION} \
     && docker-php-source delete \
-    && apk del gcc make g++ re2c autoconf
+    && apk del gcc make g++ re2c autoconf file
