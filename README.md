@@ -1,4 +1,4 @@
-# Phalcon PHP Alpine Linux Minumum Docker Image
+# Phalcon PHP Alpine Linux Minimum Docker Image
 
 ![Docker Stars](https://img.shields.io/docker/stars/fagai/phalcon-alpine.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/fagai/phalcon-alpine.svg)
