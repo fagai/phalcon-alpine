@@ -11,7 +11,9 @@
 | --- | --- |
 | phalcon3-7.2-fpm | 60MB |
 | phalcon3-7.3-fpm | 60MB |
-| phalcon4-7.4-fpm | 57MB |
+| phalcon4-7.2-fpm | 61MB |
+| phalcon4-7.3-fpm | 61MB |
+| phalcon4-7.4-fpm | 59MB |
 
 # Include PHP Extensions
 
