@@ -31,3 +31,6 @@
 * zip
 * imagick
 * memcached
+
+## License
+MIT
