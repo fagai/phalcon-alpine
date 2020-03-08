@@ -9,8 +9,9 @@ RUN apk add --no-cache autoconf gcc g++ make pcre-dev \
     && apk del --purge autoconf gcc g++ make \
     && pecl clear-cache
 
-ENV PHALCON_VERSION 4.0.4
+ENV PHALCON_VERSION 4.0.5
 ENV ZEPHIR_PARSER_VERSION 1.3.3
+ENV ZEPHIR_VERSION 0.12.17
 
 # install zephir-parser
 RUN curl -LO https://github.com/phalcon/php-zephir-parser/archive/v${ZEPHIR_PARSER_VERSION}.tar.gz \
@@ -23,7 +24,7 @@ RUN apk add --no-cache autoconf gcc g++ make file \
     && curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz \
     && tar xzf v${PHALCON_VERSION}.tar.gz \
     && cd cphalcon-${PHALCON_VERSION} \
-    && curl -LO https://github.com/phalcon/zephir/releases/download/0.12.15/zephir.phar \
+    && curl -LO https://github.com/phalcon/zephir/releases/download/${ZEPHIR_VERSION}/zephir.phar \
     && php zephir.phar fullclean && php zephir.phar compile \
     && docker-php-ext-install ${PWD}/ext \
     && cd .. \
