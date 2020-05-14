@@ -9,7 +9,7 @@ RUN apk add --no-cache autoconf gcc g++ make pcre-dev \
     && apk del --purge autoconf gcc g++ make \
     && pecl clear-cache
 
-ENV PHALCON_VERSION 4.0.5
+ENV PHALCON_VERSION 4.0.6
 ENV ZEPHIR_PARSER_VERSION 1.3.3
 ENV ZEPHIR_VERSION 0.12.17
 
