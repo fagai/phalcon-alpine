@@ -1,5 +1,15 @@
 FROM fagai/php:7.2-alpine-fpm
 
+ENV IMAGE_LIBRARY \
+    libjpeg-turbo-dev freetype-dev libpng-dev 
+
+RUN apk add --no-cache autoconf gcc g++ make imagemagick-dev ${IMAGE_LIBRARY} \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd exif \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && apk del --purge autoconf gcc g++ make
+
 RUN apk add --no-cache autoconf gcc g++ make pcre-dev \
     && apk add --no-cache libmemcached-dev re2c zlib-dev \
     && pecl install memcached \
@@ -10,24 +20,11 @@ RUN apk add --no-cache autoconf gcc g++ make pcre-dev \
     && pecl clear-cache
 
 ENV PHALCON_VERSION 4.0.6
-ENV ZEPHIR_PARSER_VERSION 1.3.3
-ENV ZEPHIR_VERSION 0.12.17
 
-# install zephir-parser
-RUN curl -LO https://github.com/phalcon/php-zephir-parser/archive/v${ZEPHIR_PARSER_VERSION}.tar.gz \
-    && tar xzf v${ZEPHIR_PARSER_VERSION}.tar.gz \
-    && docker-php-ext-install ${PWD}/php-zephir-parser-${ZEPHIR_PARSER_VERSION} \
-    && rm -rf php-zephir-parser-${ZEPHIR_PARSER_VERSION} v${ZEPHIR_PARSER_VERSION}.tar.gz
-
-# install phalcon extension
-RUN apk add --no-cache autoconf gcc g++ make file \
-    && curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz \
-    && tar xzf v${PHALCON_VERSION}.tar.gz \
-    && cd cphalcon-${PHALCON_VERSION} \
-    && curl -LO https://github.com/phalcon/zephir/releases/download/${ZEPHIR_VERSION}/zephir.phar \
-    && php zephir.phar fullclean && php zephir.phar compile \
-    && docker-php-ext-install ${PWD}/ext \
-    && cd .. \
+# install phalcon
+RUN curl -LO "https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz" \
+    && tar xzf "v${PHALCON_VERSION}.tar.gz" \
+    && docker-php-ext-install "${PWD}/cphalcon-${PHALCON_VERSION}/build/php7/64bits" \
     && rm -rf v${PHALCON_VERSION}.tar.gz cphalcon-${PHALCON_VERSION} \
     && docker-php-source delete \
-    && apk del gcc make g++ re2c autoconf file
+    && apk del --purge re2c
